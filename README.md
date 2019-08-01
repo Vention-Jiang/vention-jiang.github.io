@@ -1,96 +1,227 @@
-![](_assets/images/documentation/chalk-intro@2x.png)
+# Type
 
-Chalk is a high quality, completely customizable, performant and 100% free blog template for Jekyll.
+Minimal and Clean Jekyll Theme.
 
-## Overview
+---
 
-Features:
-  - About page.
-  - Automatic RSS feed.
-  - Automatic sitemap.
-  - Automatic time to read post indicator.
-  - Cross browser support (supports all modern browsers).
-  - Custom 404 page.
-  - Custom code highlighting.
-  - Customizable pagination.
-  - Dark and Light theme.
-  - Easy setup and deploying.
-  - Enlarge images on click.
-  - Filter on tags.
-  - Frequently updated with new versions.
-  - Many social media links supported.
-  - Media embed for videos.
-  - PageSpeed optimized.
-  - Proper sharing links for posts on Facebook, Twitter and Google Plus.
-  - SEO optimized.
-  - Support for local fonts.
-  - Support for emoji's.
+* [Configurations](#configurations)
+* [Deployment](#deployment)
+* [Posts](#posts)
+* [Pages](#pages)
+* [Navigation](#navigation)
+* [Disqus Comments](#disqus-comments)
+* [Google Analytics](#google-analytics)
+* [Social Media Links](#social-media-links)
+* [Update favicon](#update-favicon)
 
-Integrations
-  - [Disqus](https://disqus.com/)
-  - [Google Analytics](https://analytics.google.com/analytics/web/)
-  - [Google Fonts](https://fonts.google.com/)
-  - [SVG Icons](https://icomoon.io/)
+---
 
-Used tools
-  - [Autoprefixer](https://github.com/postcss/autoprefixer)
-  - [Circle CI](https://circleci.com/)
-  - [Html-proofer](https://github.com/gjtorikian/html-proofer)
-  - [Jekyll](https://jekyllrb.com/)
-  - [Jekyll Assets](https://github.com/jekyll/jekyll-assets)
-  - [Jekyll Sitemap](https://github.com/jekyll/jekyll-sitemap)
-  - [HTML5 Boilerplate](https://html5boilerplate.com/) (Influenced by)
-  - [Kickster](https://kickster.nielsenramon.com/)
-  - [Retina.js](https://imulus.github.io/retinajs/)
-  - [STACSS](https://stacss.nielsenramon.com/)
-  - [Travis](https://travis-ci.org/)
-  - [Yarn](https://yarnpkg.com)
-  - [Zooming](https://github.com/kingdido999/zooming/)
+### Configurations
 
-## Usage
+Maxima theme comes with different customizations in the `_config.yml` file:
 
-### Installation
+```sh
+title:       Type
+email:       ''
+description: ''
+baseurl:     '' # The subpath of your site, e.g. /blog
+url:         '' # The base hostname & protocol for your site
+twitter:     ''
+github:      ''
+instagram:   ''
+facebook:    ''
 
-If you haven't installed the following tools then go ahead and do so (make sure you have [Homebrew](https://brew.sh/) installed):
+markdown:  kramdown
+permalink: pretty
+paginate:  60
 
-    brew install ruby
-    brew install npm
+sass:
+  style: compressed
 
-On windows, install Ruby and Node with the installers found here:
+gems:
+  - jekyll-paginate
+  - jekyll/tagging
 
-  - [Ruby](https://rubyinstaller.org/)
-  - [Node.js](https://nodejs.org/en/download/)
+include:
+  - _pages
 
-Next setup your environment:
+exclude:
+  - vendor
+  - Gemfile
+  - Gemfile.lock
 
-    npm run setup
+# Tags
+tag_page_dir:         tag
+tag_page_layout:      tag_page
+tag_permalink_style:  pretty
 
-### Development
+# Pages path
+defaults:
+  - scope:
+      path: '_pages'
+    values:
+      permalink: /:basename:output_ext
+```
 
-Run Jekyll:
+---
 
-    npm run local
+### Deployment
 
-## Deploy to GitHub Pages
+To run the theme locally, navigate to the theme directory and run `bundle install` to install the dependencies, then run `jekyll serve` to start the Jekyll server.
 
-Before you deploy, commit your changes to any working branch except the `gh-pages` one and run the following command:
+I would recommend checking the [Deployment Methods](https://jekyllrb.com/docs/deployment-methods/) page on Jekyll website.
 
-    npm run publish
+---
 
-**Important note**: Chalk does not support the standard way of Jekyll hosting on GitHub Pages. You need to deploy your working branch (can be any branch, for xxx.github.io users: use another branch than `master`) with the `npm run publish` command. Reason for this is because Chalk uses Jekyll plugins that aren't supported by GitHub pages. The `npm run publish` command will automatically build the entire project, then push it to the `gh-pages` branch of your repo. The script creates that branch for you so no need to create it yourself. Also, if you are developing a **project site**, you must set the `baseurl` in `_config.yml` to the name of your repository.
+### Posts
 
-You can find more info on how to use the `gh-pages` branch and a custom domain [here](https://help.github.com/articles/quick-start-setting-up-a-custom-domain/).
+To create a new post, you can create a new markdown file inside the `_posts` directory by following the [recommended file structure](https://jekyllrb.com/docs/posts/#creating-post-files).
 
-[View this](https://github.com/nielsenramon/kickster#automated-deployment-with-circle-ci) for more info about automated deployment with Circle CI.
+The following is a post file with different configurations you can add as example:
 
-## License
+```sh
+---
+layout: post
+title: Welcome to Jekyll!
+featured: true
+tags: [frontpage, jekyll, blog]
+image: '/images/welcome.jpg'
+---
+```
 
-MIT License
+You can set the author, featured or not, tags, and the post image.
 
-## Contributing
+The `featured` key is to mark the post as a featured post, this will add a simple star icon (*) to the post card.
 
-1. Fork it (https://github.com/[my-github-username]/chalk/fork)
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create a new Pull Request
+To keep things more organized, add post images to **/images/pages** directory, and add page images to **/images/pages** directory.
+
+To create a draft post, create the post file under the **_drafts** directory, and you can find more information at [Working with Drafts](http://jekyllrb.com/docs/drafts/).
+
+For tags, try to not add space between two words, for example, `Ruby on Rails`, could be something like (`ruby-on-rails`, `Ruby_on_Rails`, or `Ruby-on-Rails`).
+
+Note that tags are not working with GitHub Pages, that's because the used [jekyll-tagging
+](https://github.com/pattex/jekyll-tagging) plugin is not [whitelisted](https://pages.github.com/versions/) by GitHub.
+
+To make this work, I use [Netlify.com](https://www.netlify.com/) for deployment.
+
+---
+
+### Pages
+
+To create a new page, just create a new markdown file inside the `_pages` directory.
+
+The following is the `about.md` file that you can find as an example included in the theme with the configurations you can set.
+
+```sh
+---
+layout: page
+title: About
+image: '/images/pages/about.jpeg'
+---
+```
+
+Things you can change are: `title` and `image` path.
+
+---
+
+### Navigation
+
+The navigation on the sidebar will automatically include all the links to the pages you have created.
+
+---
+
+### Disqus Comments
+
+Maxima Theme comes with Disqus comments enabled.
+
+Open `_includes/disqus.html` file, and change the `aspirethemes` value on line 15 with your [Disqus account shortname](https://help.disqus.com/customer/portal/articles/466208).
+
+```js
+s.src = '//aspirethemes-demo.disqus.com/embed.js';
+```
+
+So, if your Disqus shortname is `exampleone`, the final code above should be
+
+```js
+s.src = '//exampleone.disqus.com/embed.js';
+```
+
+That's all you need to setup Disqus from the theme side. If you get any issue regarding that comments are unable to load. First, make sure you have [registered your website with Disqus (Step 1)](https://help.disqus.com/customer/portal/articles/466182-publisher-quick-start-guide)
+
+And also check [Disqus troubleshooting guide](https://help.disqus.com/customer/portal/articles/472007-i-m-receiving-the-message-%22we-were-unable-to-load-disqus-%22) if you still have issues.
+
+---
+
+### Google Analytics
+
+To integrate Google Analytics, open `_includes/analytics.html`, and add your Google Analytics code.
+
+### Social Media Links
+
+Social media links included in `_includes/footer.html` file.
+
+The theme is using [Evil Icons](http://evil-icons.io/), which contains very simple and clean icons. The following is a list of the social media icons to use:
+
+Twitter
+
+```html
+<span data-icon='ei-sc-twitter' data-size='s'></span>
+```
+
+Facebook
+
+```html
+<span data-icon='ei-sc-facebook' data-size='s'></span>
+```
+
+Instagram
+
+```html
+<span data-icon='ei-sc-instagram' data-size='s'></span>
+```
+
+Pinterest
+
+```html
+<span data-icon='ei-sc-pinterest' data-size='s'></span>
+```
+
+Vimeo
+
+```html
+<span data-icon='ei-sc-vimeo' data-size='s'></span>
+```
+
+Google Plus
+
+```html
+<span data-icon='ei-sc-google-plus' data-size='s'></span>
+```
+
+SoundCloud
+
+```html
+<span data-icon='ei-sc-soundcloud' data-size='s'></span>
+```
+
+Tumblr
+
+```html
+<span data-icon='ei-sc-tumblr' data-size='s'></span>
+```
+
+Youtube
+
+```html
+<span data-icon='ei-sc-youtube' data-size='s'></span>
+```
+
+---
+
+### Update favicon
+
+You can find the current favicon (favicon.ico) inside the theme root directory, just replace it with your new favicon.
+
+---
+
+👉 Visit [aspirehemes.com](http://aspirethemes.com) for more Jekyll, Ghost, and WordPress themes.
