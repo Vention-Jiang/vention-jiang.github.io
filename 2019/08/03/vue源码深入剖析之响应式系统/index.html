@@ -5,11 +5,9 @@
   
   
   
-    <meta name="description" content="Have a look at all the predesigned elements you can use in Chalk.">
-  
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    first blog |
+    vue源码深入剖析之响应式系统 |
     
     Ven&#39;s Blog</title>
   
@@ -25,7 +23,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-first-blog" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+  <article id="post-vue源码深入剖析之响应式系统" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
     
@@ -33,7 +31,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      first blog
+      vue源码深入剖析之响应式系统
     </h1>
   
   
@@ -46,8 +44,8 @@
 
     
       <div class="article-meta">
-        <a href="/2019/08/01/first-blog/" class="article-date">
-  <time datetime="2019-08-01T11:47:56.000Z" itemprop="datePublished">2019-08-01</time>
+        <a href="/2019/08/03/vue源码深入剖析之响应式系统/" class="article-date">
+  <time datetime="2019-08-03T07:22:25.000Z" itemprop="datePublished">2019-08-03</time>
 </a>
         
       </div>
@@ -59,29 +57,21 @@
       
 
       
-        <p>Lorem ipsum dolor sit amet, vix ut case porro facilisis, alia possit neglegentur vis te. Has cu eirmod abhorreant, vel civibus efficiantur cu. Eu summo elitr vix, iusto putant maluisset per ut, ne etiam vivendum adipisci vel. Vis omnis tempor accusam ei, justo perpetua liberavisse cu qui. Saperet aliquando adipiscing ius ne, ne facer euripidis est. Pro mundi nostrum suavitate et.</p>
-<p>Vix dico eius nominati cu, ex zril commodo fuisset mea. Habeo adhuc audiam ius no. In quis virtute officiis has. Vix ad honestatis accommodare, quis virtute et sit, pertinax expetenda eam id. Duo an fuisset delectus dissentias, justo altera ea per.</p>
+        <p>vue作为一款十分流行mvvm框架，数据模型（vm）部分都是普通的js对象，但是对这些对象进行操作的时候，却能影响视图（v）。实现这一连接的就是「响应式系统」，vue最核心的部分就是「响应式系统」。虽然日常使用中并不会修改「响应式系统」，但是深入学习它可以帮助我们了解之后有可能遇到的问题的根源，从而更好的解决问题。</p>
 <a id="more"></a>
-<h5 id="Todo"><a href="#Todo" class="headerlink" title="Todo"></a>Todo</h5><p>Duis id ante elit. Aliquam quis tellus id orci eleifend finibus. Donec consequat justo ligula, eget sodales purus hendrerit at.</p>
-<ol>
-<li>Ut at interdum nunc. Maecenas commodo turpis quis elementum gravida.</li>
-<li>Nunc ac sapien tellus. Quisque risus enim, tempus eget porttitor in, pellentesque vel urna.<br> Donec nibh massa, rutrum a sollicitudin eu,<br>lacinia in lorem.</li>
-</ol>
-<h5 id="Graphic-design"><a href="#Graphic-design" class="headerlink" title="Graphic design"></a>Graphic design</h5><blockquote>
-<p>Graphic design is the paradise of individuality, eccentricity, heresy, abnormality, hobbies, and humors. - George Santayana</p>
-</blockquote>
-<p>Vim te case nihil oblique, has partem interpretaris ne, ad admodum accusamus nam. Usu utinam dissentias referrentur ne, vim accusam voluptua pertinacia no. Est no posse utinam inermis, brute errem mentitum et ius, te prompta albucius quo. In pro simul soleat regione.</p>
-<p><img src="https://static.pexels.com/photos/6454/nature-flowers-summer-branches-large.jpg" alt="alt"></p>
-<p>Ne reque offendit singulis mea, ad eos ferri doming nostrud. Duis suscipit usu ut, fuisset pericula ex est, et porro prompta his. Audire definiebas voluptatibus et duo, aperiam ocurreret ad nec. Vel ad nostrud principes. Ad liber congue iracundia sed, eirmod erroribus eam te, has veniam epicurei ea.</p>
-<p>Pri probo alterum aliquando an. Duo appetere laboramus intellegat ea, ex suas diam exerci vix. Mel simul debitis id, est nusquam fuisset mentitum in. Te mei iudico iisque.</p>
+<div style="width:100px" align="center">    
+    <img src="/2019/08/03/vue源码深入剖析之响应式系统/observer_folder_constructure.png" title="This is an example image">
+</div>
+
+<p><img src="observer_folder_constructure.png" alt="observer_folder_constructure.png"> {}</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/01/first-blog/" data-id="cjyv7kkyv0000a8fy5chbah50"
+      <a data-url="http://yoursite.com/2019/08/03/vue源码深入剖析之响应式系统/" data-id="cjyv7lul90000b3fymgj2gshr"
          class="article-share-link">分享</a>
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/common/">common</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
 
     </footer>
 
@@ -91,19 +81,10 @@
     
   <nav class="article-nav">
     
-      <a href="/2019/08/03/vue源码深入剖析之响应式系统/" class="article-nav-link">
-        <strong class="article-nav-caption">前一篇</strong>
-        <div class="article-nav-title">
-          
-            vue源码深入剖析之响应式系统
-          
-        </div>
-      </a>
     
-    
-      <a href="/2019/06/19/hello-world/" class="article-nav-link">
+      <a href="/2019/08/01/first-blog/" class="article-nav-link">
         <strong class="article-nav-caption">后一篇</strong>
-        <div class="article-nav-title">Hello World</div>
+        <div class="article-nav-title">first blog</div>
       </a>
     
   </nav>
