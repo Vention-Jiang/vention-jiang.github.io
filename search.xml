@@ -3,7 +3,7 @@
   <entry>
     <title><![CDATA[算法学习之递归]]></title>
     <url>%2F2019%2F08%2F03%2F%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%80%92%E5%BD%92%2F</url>
-    <content type="text"><![CDATA[什么是递归递归（Recursion）,在数学与计算机科学中是指在函数的定义中有调用了函数自身的方法。是一种思考问题的方法，通过递归可以简化问题的定义。 递归的本质递归本质是缩小问题规模。把大规模的问题逐步缩小，小到一定程度可以直接得出它的解。 递归能解决哪些问题能使用递归解决的问题，有三个特点：1、每一次递归调用，规模都应该缩小2、两次递归调用之间有紧密的联系，前一次要为后一次递归调用做准备3、在问题规模极小的时候可以直接给出解答 递归需要考虑的两个方面：1、确定递归公式，如何缩减规模2、确定边界条件，如何得到边界值 递归的应用计算最大公约数12345678910// 使用辗转相除法 M mod N = R，用N mod R递归，直到余数为零function gcd (m,n) &#123; if(typeof m !== &apos;number&apos; || typeof n !== &apos;number&apos;) return; let r = m % n; if(r === 0) &#123; return n; &#125; else &#123; return gcd(n,r); &#125;&#125; 计算阶乘12345678function fact(n) &#123; if(typeof n !== &apos;number&apos;) return; if(n === 0) &#123; return 1; &#125;else&#123; return n * fact(n-1); &#125;&#125;]]></content>
+    <content type="text"><![CDATA[递归（Recursion）,在数学与计算机科学中是指在函数的定义中有调用了函数自身的方法。是一种思考问题的方法，通过递归可以简化问题的定义。 递归的本质递归本质是缩小问题规模。把大规模的问题逐步缩小，小到一定程度可以直接得出它的解。 递归能解决哪些问题能使用递归解决的问题，有三个特点： 每一次递归调用，规模都应该缩小 两次递归调用之间有紧密的联系，前一次要为后一次递归调用做准备 在问题规模极小的时候可以直接给出解答 递归需要考虑的两个方面： 确定递归公式，如何缩减规模 确定边界条件，如何得到边界值 递归的应用一下是理解了递归的思想后，用JS实现的一些基础算法 计算最大公约数12345678910// 使用辗转相除法 M mod N = R，用N mod R递归，直到余数为零function gcd (m,n) &#123; if(typeof m !== &apos;number&apos; || typeof n !== &apos;number&apos;) return; let r = m % n; if(r === 0) &#123; return n; &#125; else &#123; return gcd(n,r); &#125;&#125; 计算阶乘12345678function fact(n) &#123; if(typeof n !== &apos;number&apos;) return; if(n === 0) &#123; return 1; &#125;else&#123; return n * fact(n-1); &#125;&#125;]]></content>
       <tags>
         <tag>Algorithm</tag>
       </tags>
