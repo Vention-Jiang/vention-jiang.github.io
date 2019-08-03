@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-08-03T08:55:15.532Z</updated>
+  <updated>2019-08-03T09:45:17.696Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>算法学习之递归</title>
+    <link href="http://yoursite.com/2019/08/03/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%80%92%E5%BD%92/"/>
+    <id>http://yoursite.com/2019/08/03/算法学习之递归/</id>
+    <published>2019-08-03T09:38:52.000Z</published>
+    <updated>2019-08-03T09:45:17.696Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="什么是递归"><a href="#什么是递归" class="headerlink" title="什么是递归"></a>什么是递归</h1><p>递归（Recursion）,在数学与计算机科学中是指在函数的定义中有调用了函数自身的方法。是一种思考问题的方法，通过递归可以简化问题的定义。</p><a id="more"></a><h2 id="递归的本质"><a href="#递归的本质" class="headerlink" title="递归的本质"></a>递归的本质</h2><p>递归本质是缩小问题规模。<br>把大规模的问题逐步缩小，小到一定程度可以直接得出它的解。</p><h2 id="递归能解决哪些问题"><a href="#递归能解决哪些问题" class="headerlink" title="递归能解决哪些问题"></a>递归能解决哪些问题</h2><p>能使用递归解决的问题，有三个特点：<br>1、每一次递归调用，规模都应该缩小<br>2、两次递归调用之间有紧密的联系，前一次要为后一次递归调用做准备<br>3、在问题规模极小的时候可以直接给出解答</p><p>递归需要考虑的两个方面：<br>1、确定递归公式，如何缩减规模<br>2、确定边界条件，如何得到边界值</p><h1 id="递归的应用"><a href="#递归的应用" class="headerlink" title="递归的应用"></a>递归的应用</h1><h3 id="计算最大公约数"><a href="#计算最大公约数" class="headerlink" title="计算最大公约数"></a>计算最大公约数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 使用辗转相除法 M mod N = R，用N mod R递归，直到余数为零</span><br><span class="line">function gcd (m,n) &#123;</span><br><span class="line">if(typeof m !== &apos;number&apos; || typeof n !== &apos;number&apos;) return;</span><br><span class="line">    let r = m % n;</span><br><span class="line">    if(r === 0) &#123;</span><br><span class="line">        return n;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return gcd(n,r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="计算阶乘"><a href="#计算阶乘" class="headerlink" title="计算阶乘"></a>计算阶乘</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function fact(n) &#123;</span><br><span class="line">if(typeof n !== &apos;number&apos;) return;</span><br><span class="line">if(n === 0) &#123;</span><br><span class="line">return 1;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">return n * fact(n-1);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h1 id=&quot;什么是递归&quot;&gt;&lt;a href=&quot;#什么是递归&quot; class=&quot;headerlink&quot; title=&quot;什么是递归&quot;&gt;&lt;/a&gt;什么是递归&lt;/h1&gt;&lt;p&gt;递归（Recursion）,在数学与计算机科学中是指在函数的定义中有调用了函数自身的方法。是一种思考问题的方法，通过递归可以简化问题的定义。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="Algorithm" scheme="http://yoursite.com/tags/Algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title>vue源码深入剖析之响应式系统</title>
@@ -41,9 +61,9 @@
     <link href="http://yoursite.com/2019/08/01/first-blog/"/>
     <id>http://yoursite.com/2019/08/01/first-blog/</id>
     <published>2019-08-01T11:47:56.000Z</published>
-    <updated>2019-08-03T08:43:35.793Z</updated>
+    <updated>2019-08-03T09:39:21.425Z</updated>
     
-    <content type="html"><![CDATA[<p>Lorem ipsum dolor sit amet, vix ut case porro facilisis, alia possit neglegentur vis te. Has cu eirmod abhorreant, vel civibus efficiantur cu. Eu summo elitr vix, iusto putant maluisset per ut, ne etiam vivendum adipisci vel. Vis omnis tempor accusam ei, justo perpetua liberavisse cu qui. Saperet aliquando adipiscing ius ne, ne facer euripidis est. Pro mundi nostrum suavitate et.</p><p>Vix dico eius nominati cu, ex zril commodo fuisset mea. Habeo adhuc audiam ius no. In quis virtute officiis has. Vix ad honestatis accommodare, quis virtute et sit, pertinax expetenda eam id. Duo an fuisset delectus dissentias, justo altera ea per.</p><a id="more"></a><h5 id="Todo"><a href="#Todo" class="headerlink" title="Todo"></a>Todo</h5><p>Duis id ante elit. Aliquam quis tellus id orci eleifend finibus. Donec consequat justo ligula, eget sodales purus hendrerit at.</p><ol><li>Ut at interdum nunc. Maecenas commodo turpis quis elementum gravida.</li><li>Nunc ac sapien tellus. Quisque risus enim, tempus eget porttitor in, pellentesque vel urna.<br> Donec nibh massa, rutrum a sollicitudin eu,<br>lacinia in lorem.</li></ol><h5 id="Graphic-design"><a href="#Graphic-design" class="headerlink" title="Graphic design"></a>Graphic design</h5><blockquote><p>Graphic design is the paradise of individuality, eccentricity, heresy, abnormality, hobbies, and humors. - George Santayana</p></blockquote><p>Vim te case nihil oblique, has partem interpretaris ne, ad admodum accusamus nam. Usu utinam dissentias referrentur ne, vim accusam voluptua pertinacia no. Est no posse utinam inermis, brute errem mentitum et ius, te prompta albucius quo. In pro simul soleat regione.</p><p><img src="https://static.pexels.com/photos/6454/nature-flowers-summer-branches-large.jpg" alt="alt"></p><p>Ne reque offendit singulis mea, ad eos ferri doming nostrud. Duis suscipit usu ut, fuisset pericula ex est, et porro prompta his. Audire definiebas voluptatibus et duo, aperiam ocurreret ad nec. Vel ad nostrud principes. Ad liber congue iracundia sed, eirmod erroribus eam te, has veniam epicurei ea.</p><p>Pri probo alterum aliquando an. Duo appetere laboramus intellegat ea, ex suas diam exerci vix. Mel simul debitis id, est nusquam fuisset mentitum in. Te mei iudico iisque.</p><p>首先我们找到vue的目录，看到core文件夹下的目录结构如下：</p><div style="width:200px">        </div><p>「响应式系统」的所有源码都在observer文件夹下。为了更好的理解，之后的分析会把此文件夹下的代码<strong>由简入繁</strong>的展示。</p>]]></content>
+    <content type="html"><![CDATA[<p>Lorem ipsum dolor sit amet, vix ut case porro facilisis, alia possit neglegentur vis te. Has cu eirmod abhorreant, vel civibus efficiantur cu. Eu summo elitr vix, iusto putant maluisset per ut, ne etiam vivendum adipisci vel. Vis omnis tempor accusam ei, justo perpetua liberavisse cu qui. Saperet aliquando adipiscing ius ne, ne facer euripidis est. Pro mundi nostrum suavitate et.</p><p>Vix dico eius nominati cu, ex zril commodo fuisset mea. Habeo adhuc audiam ius no. In quis virtute officiis has. Vix ad honestatis accommodare, quis virtute et sit, pertinax expetenda eam id. Duo an fuisset delectus dissentias, justo altera ea per.</p><a id="more"></a><h5 id="Todo"><a href="#Todo" class="headerlink" title="Todo"></a>Todo</h5><p>Duis id ante elit. Aliquam quis tellus id orci eleifend finibus. Donec consequat justo ligula, eget sodales purus hendrerit at.</p><ol><li>Ut at interdum nunc. Maecenas commodo turpis quis elementum gravida.</li><li>Nunc ac sapien tellus. Quisque risus enim, tempus eget porttitor in, pellentesque vel urna.<br> Donec nibh massa, rutrum a sollicitudin eu,<br>lacinia in lorem.</li></ol><h5 id="Graphic-design"><a href="#Graphic-design" class="headerlink" title="Graphic design"></a>Graphic design</h5><blockquote><p>Graphic design is the paradise of individuality, eccentricity, heresy, abnormality, hobbies, and humors. - George Santayana</p></blockquote><p>Vim te case nihil oblique, has partem interpretaris ne, ad admodum accusamus nam. Usu utinam dissentias referrentur ne, vim accusam voluptua pertinacia no. Est no posse utinam inermis, brute errem mentitum et ius, te prompta albucius quo. In pro simul soleat regione.</p><p><img src="https://static.pexels.com/photos/6454/nature-flowers-summer-branches-large.jpg" alt="alt"></p><p>Ne reque offendit singulis mea, ad eos ferri doming nostrud. Duis suscipit usu ut, fuisset pericula ex est, et porro prompta his. Audire definiebas voluptatibus et duo, aperiam ocurreret ad nec. Vel ad nostrud principes. Ad liber congue iracundia sed, eirmod erroribus eam te, has veniam epicurei ea.</p><p>Pri probo alterum aliquando an. Duo appetere laboramus intellegat ea, ex suas diam exerci vix. Mel simul debitis id, est nusquam fuisset mentitum in. Te mei iudico iisque.</p>]]></content>
     
     <summary type="html">
     
