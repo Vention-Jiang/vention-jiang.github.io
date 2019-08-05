@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    vue源码深入剖析之依赖收集 |
+    
+    Ven&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-vue源码深入剖析之依赖收集" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      vue源码深入剖析之依赖收集
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/08/05/vue源码深入剖析之依赖收集/" class="article-date">
+  <time datetime="2019-08-05T08:11:07.000Z" itemprop="datePublished">2019-08-05</time>
+</a>
+        
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <p>上一篇文章我们用一个简化之后简单实现作为例子，实现了一个简单的「响应式系统」。</p>
+<p>但这个例子有许多问题需要解决，比如：</p>
+<ol>
+<li>如果视图上并不需要用到的属性<code>imnouse</code>更新了，我们这个雏形中也仍然会执行callback操作。</li>
+<li>在有多个视图共享同一个数据模型的时候，属性<code>imveryfamous</code>被<code>view1</code>和<code>view2</code>视图实例用来展示。此时<code>imveryfamous</code>改变了，需要准确的通知到<code>view1</code>和<code>view2</code>，而不要通知其他的视图。</li>
+</ol>
+<p>为了解决这些问题，我们为之前的简单示例添加「依赖收集」的功能。</p>
+<a id="more"></a>
+
+<h1 id="基本原理篇"><a href="#基本原理篇" class="headerlink" title="基本原理篇"></a>基本原理篇</h1><p>在vue的目录，看到core文件夹下的目录结构如下：</p>
+<div style="width:200px">    
+    <img src="/2019/08/05/vue源码深入剖析之依赖收集/observer_folder_constructure.png" title="目录结构">
+</div>
+
+<p>今天要说的「依赖收集」的代码就在<code>core/observer/watcher.js</code>和<code>core/observer/dep.js</code>中。同样，由于源码中的实现较为全面，本文会以做了大量的简化之后简单实现来作为示例。</p>
+<p>「依赖收集」的关系如下图所示。每个响应式对象都有一个订阅者Dep，用来存放订阅的watcher。当对象被读取（get）时，当前的watcher会被压入Dep中添加依赖，而每个watcher都是一个观察者，当对象被修改（set）时，会执行所有依赖的watcher的callback。</p>
+<div style="width:500px; margin: 0 auto;">    
+    <img src="/2019/08/05/vue源码深入剖析之依赖收集/reactive_object.png" title="依赖收集的结构">
+</div>
+
+<h1 id="1-订阅者Dep"><a href="#1-订阅者Dep" class="headerlink" title="1. 订阅者Dep"></a>1. 订阅者Dep</h1><p>我们先简单的实现一个订阅者Dep，它主要用来存放watcher</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">class Dep &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        /* 用来存放 Watcher 对象的数组 */</span><br><span class="line">        this.subs = [];</span><br><span class="line">    &#125;</span><br><span class="line">    /* 在 subs 中添加一个 Watcher 对象 */</span><br><span class="line">    addSub(sub) &#123;</span><br><span class="line">        this.subs.push(sub);</span><br><span class="line">    &#125;</span><br><span class="line">    /* 通知所有 Watcher 对象更新视图 */</span><br><span class="line">    notify() &#123;</span><br><span class="line">        this.subs.forEach((sub) = &gt;&#123;</span><br><span class="line">            sub.update();</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line">export function setTarget (_target) &#123;</span><br><span class="line">  Dep.target = _target</span><br><span class="line">&#125;</span><br><span class="line">Dep.target = null</span><br></pre></td></tr></table></figure>
+
+<p>Dep中有两个方法，分别是：</p>
+<ol>
+<li>addSub添加订阅者，实际应用时就是把当前的watcher添加到Dep对象的订阅者数组中去</li>
+<li>notify的方法，通知Dep中所有的订阅者去触发他们的更新操作</li>
+</ol>
+<h1 id="2-观察者Watcher"><a href="#2-观察者Watcher" class="headerlink" title="2. 观察者Watcher"></a>2. 观察者Watcher</h1><p>再来简单的实现一个watcher，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">import &#123; pushTarget &#125; from &apos;./dep&apos;</span><br><span class="line">class Watcher &#123;</span><br><span class="line">    constructor() &#123;</span><br><span class="line">        /* 在 new 一个 Watcher 对象时将该对象通过pushTarget方法，设置为当前target，在 get 中会用到 */</span><br><span class="line">        setTarget(this);</span><br><span class="line">    &#125;</span><br><span class="line">    /* 更新视图的方法 */</span><br><span class="line">    update() &#123;</span><br><span class="line">        console.log(&quot;视图更新啦~&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="3-修改defineReactive"><a href="#3-修改defineReactive" class="headerlink" title="3. 修改defineReactive"></a>3. 修改defineReactive</h1><p>我们增加了一个Dep类的对象，用来收集watcher对象。在对象被「读」的时候，会触发reactiveGetter函数把当前的Watcher对象(存放在Dep.target 中)收集到Dep类中去。之后如果当该对象被「写」的时候，则会触发reactiveSetter方法，通知Dep类调用notify来触发所有Watcher对象的update方法更新对应视图</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function defineReactive(obj, key, val) &#123;</span><br><span class="line">    /* 一个Dep类对象 */</span><br><span class="line">    const dep = new Dep();</span><br><span class="line">    Object.defineProperty(obj, key, &#123;</span><br><span class="line">        enumerable: true,</span><br><span class="line">        configurable: true,</span><br><span class="line">        get: function reactiveGetter() &#123;</span><br><span class="line">            /* 将 Dep.target(即当前的 Watcher 对象存入 dep 的 subs 中) */</span><br><span class="line">            dep.addSub(Dep.target);</span><br><span class="line">            return val;</span><br><span class="line">        &#125;,</span><br><span class="line">        set: function reactiveSetter(newVal) &#123;</span><br><span class="line">            if (newVal === val) return;</span><br><span class="line">            /* 在 set 的时候触发 dep 的 notify 来通知所有的 Watcher 对象更新视图 */</span><br><span class="line">            dep.notify();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="原理的基础实现"><a href="#原理的基础实现" class="headerlink" title="原理的基础实现"></a>原理的基础实现</h1><p>我们修改一下之前的Vue</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Vue &#123;</span><br><span class="line">    constructor(options) &#123;</span><br><span class="line">        this._data = options.data;</span><br><span class="line">        observer(this._data);</span><br><span class="line">        /* 新建一个 Watcher 观察者对象，这时候 Dep.target 会指向这个 Watcher 对象 */</span><br><span class="line">        new Watcher();</span><br><span class="line">        /* 在这里模拟 render 的过程，为了触发 test 属性的 get 函数 */</span><br><span class="line">        console.log(&apos;render~&apos;, this._data.test);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先在observer的过程中会注册get方法，该方法用来进行「依赖收集」。在它的闭包中会有一个Dep对象，这个对象用来存放Watcher对象的实例。其实「依赖收集」的过程就是把Watcher实例存放到对应的Dep对象中去。get方法可以让当前的Watcher对象 (Dep.target)存放到它的subs中 (addSub)方法，在数据变化时，set会调用Dep对象的notify方法通知它内部所有的Watcher对象进行视图更新。</p>
+<p>这是Object.defineProperty的set / get方法处理的事情，那么「依赖收集」的前提条件还有两个: </p>
+<ol>
+<li>触发get方法</li>
+<li>新建一个Watcher对象</li>
+</ol>
+<p>这个我们在Vue的构造类中处理。新建一个Watcher对象只需要new出来，这时候Dep.target已经指向了这个new出来的Watcher对象来。而触发get方法也很简单，实际上只要把renderfunction进行渲染，那么其中的依赖的对象都会被「读取」，这里我们通过打印来模拟这个过程，读取test来触发get进行「依赖收集」。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>至此，简单的「响应式系统」就已经建立起来了，他可以通过get来进行「依赖收集」，然后通过set来通知观察者更新视图。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/05/vue源码深入剖析之依赖收集/" data-id="cjyy4aifv0000vnfyml4j37k5"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+    
+      <a href="/2019/08/03/算法学习之递归/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">算法学习之递归</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2019 Ven&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Ven&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

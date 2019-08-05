@@ -57,6 +57,71 @@
 
     
       
+        <article id="post-vue源码深入剖析之依赖收集" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/08/05/vue源码深入剖析之依赖收集/">vue源码深入剖析之依赖收集</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/08/05/vue源码深入剖析之依赖收集/" class="article-date">
+  <time datetime="2019-08-05T08:11:07.000Z" itemprop="datePublished">2019-08-05</time>
+</a>
+        
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <p>上一篇文章我们用一个简化之后简单实现作为例子，实现了一个简单的「响应式系统」。</p>
+<p>但这个例子有许多问题需要解决，比如：</p>
+<ol>
+<li>如果视图上并不需要用到的属性<code>imnouse</code>更新了，我们这个雏形中也仍然会执行callback操作。</li>
+<li>在有多个视图共享同一个数据模型的时候，属性<code>imveryfamous</code>被<code>view1</code>和<code>view2</code>视图实例用来展示。此时<code>imveryfamous</code>改变了，需要准确的通知到<code>view1</code>和<code>view2</code>，而不要通知其他的视图。</li>
+</ol>
+<p>为了解决这些问题，我们为之前的简单示例添加「依赖收集」的功能。</p>
+        
+          <a class="article-more-link" href="/2019/08/05/vue源码深入剖析之依赖收集/">阅读全文...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/05/vue源码深入剖析之依赖收集/" data-id="cjyy4aifv0000vnfyml4j37k5"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
         <article id="post-算法学习之递归" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -98,7 +163,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/03/算法学习之递归/" data-id="cjyvcwfod0001k5fyv3nb9sbg"
+      <a data-url="http://yoursite.com/2019/08/03/算法学习之递归/" data-id="cjyy4aifz0001vnfyz3oe050f"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
@@ -157,7 +222,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/03/vue源码深入剖析之响应式系统/" data-id="cjyvcwfo90000k5fyjfzl62ua"
+      <a data-url="http://yoursite.com/2019/08/03/vue源码深入剖析之响应式系统/" data-id="cjyy4aig10002vnfy7ycst95e"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
