@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    算法学习之递归二——汉诺塔 |
+    
+    Ven&#39;s Blog</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+    <link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  
+  <script src="/js/pace.min.js"></script>
+</head>
+</html>
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-算法学习之递归二——汉诺塔" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      算法学习之递归二——汉诺塔
+    </h1>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/08/07/算法学习之递归二——汉诺塔/" class="article-date">
+  <time datetime="2019-08-07T12:59:34.000Z" itemprop="datePublished">2019-08-07</time>
+</a>
+        
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <p>我们先看一个印度的古老传说：</p>
+<blockquote>
+<p>在世界中心贝拿勒斯（在印度北部）的圣庙里，一块黄铜板上插着三根宝石针。印度教的主神梵天在创造世界的时候，在其中一根针上从下到上地穿好了由大到小的64片金片，这就是所谓的汉诺塔。不论白天黑夜，总有一个僧侣在按照下面的法则移动这些金片：一次只移动一片，不管在哪根针上，小片必须在大片上面。僧侣们预言，当所有的金片都从梵天穿好的那根针上移到另外一根针上时，世界就将在一声霹雳中消灭，而梵塔、庙宇和众生也都将同归于尽。</p>
+</blockquote>
+<a id="more"></a>
+<p>多么可怕的故事啊，但是简化以后就变成一下这幅图，这就是汉诺塔。</p>
+<div style="width:400px; margin: 0 auto;">    
+    <img src="/2019/08/07/算法学习之递归二——汉诺塔/hanoi.png" title="汉诺塔图片">
+</div>
+
+<p>有三根相邻的柱子，标号为A,B,C，A柱子上从下到上按金字塔状叠放着n个不同大小的圆盘，要把所有盘子一个一个移动到柱子C上，并且每次移动同一根柱子上都不能出现大盘子在小盘子上方，请问至少需要多少次移动，设移动次数为H(n）。<br>首先我们肯定是把上面n-1个盘子移动到柱子B上，然后把最大的一块放在C上，最后把B上的所有盘子移动到C上，由此我们得出表达式：</p>
+<blockquote>
+<p>H(1) = 1<br>H(n) = 2*H(n-1）+1 (n&gt;1）</p>
+</blockquote>
+<h3 id="汉诺塔实现"><a href="#汉诺塔实现" class="headerlink" title="汉诺塔实现"></a>汉诺塔实现</h3><p>这个就可以化为递归的边界值了。用代码实现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function hanoi(n, a = &apos;a&apos;, b = &apos;b&apos;, c = &apos;c&apos;) &#123;</span><br><span class="line">	if (n === 1) &#123;</span><br><span class="line">		count ++;</span><br><span class="line">		console.log(`第$&#123;count&#125;次，$&#123;a&#125;柱--&gt;$&#123;c&#125;柱`);</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">		hanoi(n-1, a, c, b);</span><br><span class="line">		count ++;</span><br><span class="line">		console.log(`第$&#123;count&#125;次，$&#123;a&#125;柱--&gt;$&#123;c&#125;柱`);</span><br><span class="line">		hanoi(n-1, b, a, c);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">let count = 0;</span><br><span class="line">function startHanoi(n) &#123;</span><br><span class="line">	count = 0;</span><br><span class="line">	hanoi(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过计算，其实n层汉诺塔移动所需的次数是2^n - 1次。所以回到之前的印度神话，64层汉诺塔移动所需要的次数是18446744073709551615次，就算每秒移动一次，完成也需要5845.54亿年以上。那确实地球早已毁灭了。</p>
+<p>所以，灭世还很长，不用去担心众生毁于一声霹雳。 <strong>但学习的路同样也很长，不要停止努力。</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/07/算法学习之递归二——汉诺塔/" data-id="cjz19ggot0007sgfypfmi25og"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+    
+  <nav class="article-nav">
+    
+    
+      <a href="/2019/08/05/vue源码深入剖析之依赖收集/" class="article-nav-link">
+        <strong class="article-nav-caption">后一篇</strong>
+        <div class="article-nav-title">vue源码深入剖析之依赖收集</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+    
+  
+
+</article>
+
+
+
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2019 Ven&#39;s Blog</li>
+      <li>Powered by <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="Ven&#39;s Blog"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="搜索">
+        <i class="fe fe-search"></i>
+        搜索
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS Feed">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="/js/snap.svg-min.js"></script>
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  <script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+  <script src="/js/search.js"></script>
+
+
+<script src="/js/ocean.js"></script>
+
+</body>
+</html>

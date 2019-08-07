@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-08-05T14:33:48.909Z</updated>
+  <updated>2019-08-07T13:08:50.638Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>算法学习之递归二——汉诺塔</title>
+    <link href="http://yoursite.com/2019/08/07/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%80%92%E5%BD%92%E4%BA%8C%E2%80%94%E2%80%94%E6%B1%89%E8%AF%BA%E5%A1%94/"/>
+    <id>http://yoursite.com/2019/08/07/算法学习之递归二——汉诺塔/</id>
+    <published>2019-08-07T12:59:34.000Z</published>
+    <updated>2019-08-07T13:08:50.638Z</updated>
+    
+    <content type="html"><![CDATA[<p>我们先看一个印度的古老传说：</p><blockquote><p>在世界中心贝拿勒斯（在印度北部）的圣庙里，一块黄铜板上插着三根宝石针。印度教的主神梵天在创造世界的时候，在其中一根针上从下到上地穿好了由大到小的64片金片，这就是所谓的汉诺塔。不论白天黑夜，总有一个僧侣在按照下面的法则移动这些金片：一次只移动一片，不管在哪根针上，小片必须在大片上面。僧侣们预言，当所有的金片都从梵天穿好的那根针上移到另外一根针上时，世界就将在一声霹雳中消灭，而梵塔、庙宇和众生也都将同归于尽。</p></blockquote><a id="more"></a><p>多么可怕的故事啊，但是简化以后就变成一下这幅图，这就是汉诺塔。</p><div style="width:400px; margin: 0 auto;">        <img src="/2019/08/07/算法学习之递归二——汉诺塔/hanoi.png" title="汉诺塔图片"></div><p>有三根相邻的柱子，标号为A,B,C，A柱子上从下到上按金字塔状叠放着n个不同大小的圆盘，要把所有盘子一个一个移动到柱子C上，并且每次移动同一根柱子上都不能出现大盘子在小盘子上方，请问至少需要多少次移动，设移动次数为H(n）。<br>首先我们肯定是把上面n-1个盘子移动到柱子B上，然后把最大的一块放在C上，最后把B上的所有盘子移动到C上，由此我们得出表达式：</p><blockquote><p>H(1) = 1<br>H(n) = 2*H(n-1）+1 (n&gt;1）</p></blockquote><h3 id="汉诺塔实现"><a href="#汉诺塔实现" class="headerlink" title="汉诺塔实现"></a>汉诺塔实现</h3><p>这个就可以化为递归的边界值了。用代码实现如下：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function hanoi(n, a = &apos;a&apos;, b = &apos;b&apos;, c = &apos;c&apos;) &#123;</span><br><span class="line">if (n === 1) &#123;</span><br><span class="line">count ++;</span><br><span class="line">console.log(`第$&#123;count&#125;次，$&#123;a&#125;柱--&gt;$&#123;c&#125;柱`);</span><br><span class="line">&#125; else &#123;</span><br><span class="line">hanoi(n-1, a, c, b);</span><br><span class="line">count ++;</span><br><span class="line">console.log(`第$&#123;count&#125;次，$&#123;a&#125;柱--&gt;$&#123;c&#125;柱`);</span><br><span class="line">hanoi(n-1, b, a, c);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">let count = 0;</span><br><span class="line">function startHanoi(n) &#123;</span><br><span class="line">count = 0;</span><br><span class="line">hanoi(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>通过计算，其实n层汉诺塔移动所需的次数是2^n - 1次。所以回到之前的印度神话，64层汉诺塔移动所需要的次数是18446744073709551615次，就算每秒移动一次，完成也需要5845.54亿年以上。那确实地球早已毁灭了。</p><p>所以，灭世还很长，不用去担心众生毁于一声霹雳。 <strong>但学习的路同样也很长，不要停止努力。</strong></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;我们先看一个印度的古老传说：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在世界中心贝拿勒斯（在印度北部）的圣庙里，一块黄铜板上插着三根宝石针。印度教的主神梵天在创造世界的时候，在其中一根针上从下到上地穿好了由大到小的64片金片，这就是所谓的汉诺塔。不论白天黑夜，总有一个僧侣在按照下面的法则移动这些金片：一次只移动一片，不管在哪根针上，小片必须在大片上面。僧侣们预言，当所有的金片都从梵天穿好的那根针上移到另外一根针上时，世界就将在一声霹雳中消灭，而梵塔、庙宇和众生也都将同归于尽。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+    
+      <category term="Algorithm" scheme="http://yoursite.com/tags/Algorithm/"/>
+    
+  </entry>
   
   <entry>
     <title>vue源码深入剖析之依赖收集</title>
@@ -47,7 +70,7 @@
     <link href="http://yoursite.com/2019/08/03/%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E9%80%92%E5%BD%92/"/>
     <id>http://yoursite.com/2019/08/03/算法学习之递归/</id>
     <published>2019-08-03T09:38:52.000Z</published>
-    <updated>2019-08-03T09:47:58.970Z</updated>
+    <updated>2019-08-07T12:58:56.147Z</updated>
     
     <content type="html"><![CDATA[<p>递归（Recursion）,在数学与计算机科学中是指在函数的定义中有调用了函数自身的方法。是一种思考问题的方法，通过递归可以简化问题的定义。</p><a id="more"></a><h1 id="递归的本质"><a href="#递归的本质" class="headerlink" title="递归的本质"></a>递归的本质</h1><p>递归本质是缩小问题规模。<br>把大规模的问题逐步缩小，小到一定程度可以直接得出它的解。</p><h2 id="递归能解决哪些问题"><a href="#递归能解决哪些问题" class="headerlink" title="递归能解决哪些问题"></a>递归能解决哪些问题</h2><p>能使用递归解决的问题，有三个特点：</p><ol><li>每一次递归调用，规模都应该缩小</li><li>两次递归调用之间有紧密的联系，前一次要为后一次递归调用做准备</li><li>在问题规模极小的时候可以直接给出解答</li></ol><p>递归需要考虑的两个方面：</p><ol><li>确定递归公式，如何缩减规模</li><li>确定边界条件，如何得到边界值</li></ol><h1 id="递归的应用"><a href="#递归的应用" class="headerlink" title="递归的应用"></a>递归的应用</h1><p>一下是理解了递归的思想后，用JS实现的一些基础算法</p><h3 id="计算最大公约数"><a href="#计算最大公约数" class="headerlink" title="计算最大公约数"></a>计算最大公约数</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 使用辗转相除法 M mod N = R，用N mod R递归，直到余数为零</span><br><span class="line">function gcd (m,n) &#123;</span><br><span class="line">if(typeof m !== &apos;number&apos; || typeof n !== &apos;number&apos;) return;</span><br><span class="line">    let r = m % n;</span><br><span class="line">    if(r === 0) &#123;</span><br><span class="line">        return n;</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        return gcd(n,r);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="计算阶乘"><a href="#计算阶乘" class="headerlink" title="计算阶乘"></a>计算阶乘</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function fact(n) &#123;</span><br><span class="line">if(typeof n !== &apos;number&apos;) return;</span><br><span class="line">if(n === 0) &#123;</span><br><span class="line">return 1;</span><br><span class="line">&#125;else&#123;</span><br><span class="line">return n * fact(n-1);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
