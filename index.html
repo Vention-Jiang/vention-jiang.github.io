@@ -57,6 +57,66 @@
 
     
       
+        <article id="post-vue源码深入剖析之VNODE" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h2 itemprop="name">
+      <a class="article-title" href="/2019/08/26/vue源码深入剖析之VNODE/">vue源码深入剖析之VNode</a>
+    </h2>
+  
+  
+
+
+
+
+      </header>
+    
+
+    
+      <div class="article-meta">
+        <a href="/2019/08/26/vue源码深入剖析之VNODE/" class="article-date">
+  <time datetime="2019-08-26T02:29:29.000Z" itemprop="datePublished">2019-08-26</time>
+</a>
+        
+      </div>
+    
+
+    <div class="article-entry" itemprop="articleBody">
+      
+
+      
+
+      
+        <p>上一篇，我们把简单的「响应式系统」建立起来，并且可以通过get来进行「依赖收集」，然后通过set来通知观察者更新视图。</p>
+<p>核心部件已经有了，我们还需要有一套体系来把上下游串联起来。做个不恰当的比喻，如果把框架比作一台汽车，引擎已经初步做出来了，下面要做的就是动力传导系统了。整个串联部件里面，最重要的就是我们熟知的virtual DOM（虚拟DOM）。说的深一些，virtual DOM是一个AST（抽象语法树），是诸如比对、优化等操作的核心部件。而要说virtual DOM，vue实现的核心是VNode，整个vdom中处处都有VNode的身影。</p>
+        
+          <a class="article-more-link" href="/2019/08/26/vue源码深入剖析之VNODE/">阅读全文...</a>
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2019/08/26/vue源码深入剖析之VNODE/" data-id="cjzrufhyt0001nyfyccgi1qww"
+         class="article-share-link">分享</a>
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+</article>
+
+
+
+      
         <article id="post-算法学习之递归三——斐波那契问题" class="article article-type-post" itemscope itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -101,7 +161,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/08/算法学习之递归三——斐波那契问题/" data-id="cjz2bebrh0004s2fyl8aji7w6"
+      <a data-url="http://yoursite.com/2019/08/08/算法学习之递归三——斐波那契问题/" data-id="cjzrufhz00008nyfyof9mu9ct"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
@@ -163,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/07/算法学习之递归二——汉诺塔/" data-id="cjz2bebrl0005s2fyeu7mi4n2"
+      <a data-url="http://yoursite.com/2019/08/07/算法学习之递归二——汉诺塔/" data-id="cjzrufhyx0004nyfyg22ylgft"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
@@ -228,7 +288,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/05/vue源码深入剖析之依赖收集/" data-id="cjz2bebqq0000s2fy1oryyoxh"
+      <a data-url="http://yoursite.com/2019/08/05/vue源码深入剖析之依赖收集/" data-id="cjzrufhyp0000nyfy7281n5vu"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -287,7 +347,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/03/算法学习之递归/" data-id="cjz2bebr80003s2fyf4n3qsuu"
+      <a data-url="http://yoursite.com/2019/08/03/算法学习之递归/" data-id="cjzrufhyy0005nyfybrmq4wjw"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Algorithm/">Algorithm</a></li></ul>
@@ -346,7 +406,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/08/03/vue源码深入剖析之响应式系统/" data-id="cjz2bebqy0001s2fygpn6ailq"
+      <a data-url="http://yoursite.com/2019/08/03/vue源码深入剖析之响应式系统/" data-id="cjzrufhyw0003nyfy7qo5c4kp"
          class="article-share-link">分享</a>
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
